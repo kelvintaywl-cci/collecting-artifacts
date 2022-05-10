@@ -7,7 +7,7 @@ jobs:
         type: string
     resource_class: small
     docker:
-      - cimg/base:stable
+      - image: cimg/base:stable
     steps:
       - run:
           name: create << parameters.file-name >>
@@ -20,7 +20,7 @@ jobs:
   save-as-artifacts:
     resource_class: small
     docker:
-      - cimg/base:stable
+      - image: cimg/base:stable
     steps:
       - attach_workspace:
           at: /tmp/workspace
