@@ -1,0 +1,42 @@
+version: 2.1
+
+jobs:
+  create-file:
+    parameters:
+      file-name:
+        type: string
+    resource_class: small
+    docker:
+      - cimg/base:stable
+    steps:
+      - run:
+          name: create << parameters.file-name >>
+          command: echo 'Text for << parameters.file-name >>' >> << parameters.file-name >>
+      - persist_to_workspace:
+          root: .
+          paths:
+            - << parameters.file-name >>
+
+  save-as-artifacts:
+    resource_class: small
+    docker:
+      - cimg/base:stable
+    steps:
+      - attach_workspace:
+          at: /tmp/workspace
+      - store_artifacts:
+          path: /tmp/workspace
+
+workflows:
+  main:
+    jobs:
+      - create-file:
+          matrix:
+            parameters:
+              file-name:
+                - 'foobar.txt'
+                - 'fizzbuzz.txt'
+      - save-as-artifacts:
+          requires:
+            - create-file
+ 
