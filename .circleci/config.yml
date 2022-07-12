@@ -22,7 +22,7 @@ jobs:
     docker:
       - image: cimg/base:stable
     steps:
-      - run: echo "foobar" > hoge.txt
+      # - run: echo "foobar" > hoge.txt
       - run: exit 0
       - store_artifacts:
           path: /home/circleci/project
