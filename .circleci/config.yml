@@ -22,21 +22,12 @@ jobs:
     docker:
       - image: cimg/base:stable
     steps:
-      - attach_workspace:
-          at: /tmp/workspace
+      - run: echo "foobar" > hoge.txt
+      - run: exit 1
       - store_artifacts:
-          path: /tmp/workspace
+          path: /home/circleci/project
 
 workflows:
   main:
     jobs:
-      - create-file:
-          matrix:
-            parameters:
-              file-name:
-                - 'foobar.txt'
-                - 'fizzbuzz.txt'
-      - save-as-artifacts:
-          requires:
-            - create-file
- 
+      - save-as-artifacts
