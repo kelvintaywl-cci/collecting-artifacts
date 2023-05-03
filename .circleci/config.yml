@@ -24,6 +24,7 @@ jobs:
     steps:
       - attach_workspace:
           at: /tmp/workspace
+      - run: exit 1
       - store_artifacts:
           path: /tmp/workspace
 
