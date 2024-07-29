@@ -5,13 +5,14 @@ jobs:
     parameters:
       file-name:
         type: string
-    resource_class: small
+    resource_class: medium
     docker:
       - image: cimg/base:stable
     steps:
       - run:
           name: create << parameters.file-name >>
-          command: echo 'Text for << parameters.file-name >>' >> << parameters.file-name >>
+          command: mkfile 1.5g << parameters.file-name >>
+          
       - persist_to_workspace:
           root: .
           paths:
@@ -34,8 +35,8 @@ workflows:
           matrix:
             parameters:
               file-name:
-                - 'foobar.txt'
-                - 'fizzbuzz.txt'
+                - 'foobar.dat'
+                - 'fizzbuzz.dat'
       - save-as-artifacts:
           requires:
             - create-file
