@@ -11,7 +11,7 @@ jobs:
     steps:
       - run:
           name: create << parameters.file-name >>
-          command: mkfile 1.5g << parameters.file-name >>
+          command: head -c 1073741824 /dev/urandom > << parameters.file-name >>
           
       - persist_to_workspace:
           root: .
